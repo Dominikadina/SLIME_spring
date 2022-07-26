@@ -38,4 +38,22 @@ public class Customer {
     @EqualsAndHashCode.Exclude
     private Set<SampleCustomer> sampleCustomers;
 
+    public Customer(Long id, String company, String first_name, String second_name, String street, String street_number, String postal_code, String city, String country, String e_mail, String phone_number, String nip_number, String login, String password, Set<Order> order, Set<SampleCustomer> sampleCustomers) {
+        this.id = id;
+        this.company = company;
+        this.first_name = first_name;
+        this.second_name = second_name;
+        this.street = street;
+        this.street_number = street_number;
+        this.postal_code = postal_code;
+        this.city = city;
+        this.country = country;
+        this.e_mail = e_mail;
+        this.phone_number = phone_number;
+        this.nip_number = nip_number;
+        this.login = login;
+        this.password = password;
+        this.order = order;
+        this.sampleCustomers = sampleCustomers;
+    }
 }
