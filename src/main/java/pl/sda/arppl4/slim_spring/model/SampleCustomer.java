@@ -2,13 +2,12 @@ package pl.sda.arppl4.slim_spring.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,4 +25,8 @@ public class SampleCustomer {
     private String register_code;
     private String register_date;
 
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    private Set<SampleCustomer> sampleCustomers;
 }

@@ -1,14 +1,10 @@
 package pl.sda.arppl4.slim_spring.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,6 +19,12 @@ public class Order {
     private String total_price;
     private String status;
     private LocalDateTime order_date;
+
+
+    @ManyToOne()
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Customer customer;
 
 
 }
