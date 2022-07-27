@@ -31,4 +31,9 @@ public class SampleCustomerController {
         log.info("Delete customer sample was called:" + identifier);
         sampleCustomerService.deleteById(identifier);
     }
+    @PostMapping("/update")
+    public void updateSampleCustomer(@RequestBody SampleCustomer sampleCustomer){
+        log.info("Update of sample customer was called");
+        sampleCustomerService.updateSampleCustomer(sampleCustomer);
+    }
 }

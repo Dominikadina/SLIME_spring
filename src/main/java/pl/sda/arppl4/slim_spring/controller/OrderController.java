@@ -29,8 +29,12 @@ private final OrderService orderService;
 }
 @DeleteMapping("/delete/{identifier}")
     public void deleteOrder(@PathVariable(name = "identifier") Long identifier){
-    log.info("Delete order method ws called:" + identifier);
+    log.info("Delete order method was called:" + identifier);
     orderService.deleteById(identifier);
 }
-
+@PostMapping("/update")
+    public void updateOrder(@RequestBody Order order){
+    log.info("Update order was called");
+    orderService.updateOrder(order);
+}
 }

@@ -23,7 +23,7 @@ public class Customer {
     private String postal_code;
     private String city;
     private String country;
-    private String e_mail;
+    private String email;
     private String phone_number;
     private String nip_number;
     private String login;
@@ -38,7 +38,7 @@ public class Customer {
     @EqualsAndHashCode.Exclude
     private Set<SampleCustomer> sampleCustomers;
 
-    public Customer(Long id, String company, String first_name, String second_name, String street, String street_number, String postal_code, String city, String country, String e_mail, String phone_number, String nip_number, String login, String password, Set<Order> order, Set<SampleCustomer> sampleCustomers) {
+    public Customer(Long id, String company, String first_name, String second_name, String street, String street_number, String postal_code, String city, String country, String email, String phone_number, String nip_number, String login, String password, Set<Order> order, Set<SampleCustomer> sampleCustomers) {
         this.id = id;
         this.company = company;
         this.first_name = first_name;
@@ -48,7 +48,7 @@ public class Customer {
         this.postal_code = postal_code;
         this.city = city;
         this.country = country;
-        this.e_mail = e_mail;
+        this.email = email;
         this.phone_number = phone_number;
         this.nip_number = nip_number;
         this.login = login;
