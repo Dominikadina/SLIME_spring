@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@AllArgsConstructor
+
 @NoArgsConstructor
 public class Customer {
     @Id
