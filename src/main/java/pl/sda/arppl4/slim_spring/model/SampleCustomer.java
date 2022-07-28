@@ -27,7 +27,7 @@ public class SampleCustomer {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
-    private result result;
+    private Result result;
 
     @ManyToOne()
     @EqualsAndHashCode.Exclude

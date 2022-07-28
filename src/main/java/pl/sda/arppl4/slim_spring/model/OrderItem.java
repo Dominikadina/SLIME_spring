@@ -1,48 +1,46 @@
 package pl.sda.arppl4.slim_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data // Getter Setter ToString EqualsAndHashCode
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Result {
-
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double testResult;
-
     @Enumerated(EnumType.STRING)
-    private Unit unit;
+    private APackage apackage;
+    private Double price;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    private String comment;
-
-    @ManyToOne()
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonBackReference
-    private AUser auser;
-
-    @ManyToOne()
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
     private SampleCustomer sampleCustomer;
 
-    @ManyToOne()
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
-    private OrderItem orderItem;
+    private TestType testType;
 
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Order order;
+
+    @OneToMany(mappedBy = "orderItem", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @JsonManagedReference
+    private Set<Result> result ;
 
 }
