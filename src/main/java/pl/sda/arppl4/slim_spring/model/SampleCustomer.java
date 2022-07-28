@@ -1,9 +1,7 @@
 package pl.sda.arppl4.slim_spring.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,8 +23,22 @@ public class SampleCustomer {
     private String register_code;
     private String register_date;
 
-
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @ManyToOne()
     @EqualsAndHashCode.Exclude
-    private Set<SampleCustomer> sampleCustomers;
+    @ToString.Exclude
+    @JsonBackReference
+    private Result result;
+
+    @ManyToOne()
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Customer customer;
+
+
+
+// To zmieniam, bo mamy relacje ManyToOne to customer
+ //   @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+ //   @EqualsAndHashCode.Exclude
+ //   private Set<SampleCustomer> sampleCustomers;
 }
