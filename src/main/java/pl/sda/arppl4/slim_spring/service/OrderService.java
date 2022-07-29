@@ -37,17 +37,17 @@ public class OrderService {
         Optional<Order> orderOptional = orderRepository.findById(identifier);
         if (orderOptional.isPresent()){
         Order editedOrder = orderOptional.get();
-        if (updatedData.getRegister_code() != null) {
-            editedOrder.setRegister_code(updatedData.getRegister_code());
+        if (updatedData.getRegisterCode() != null) {
+            editedOrder.setRegisterCode(updatedData.getRegisterCode());
         }
-        if (updatedData.getTotal_price() != null) {
-            editedOrder.setTotal_price(updatedData.getTotal_price());
+        if (updatedData.getTotalPrice() != null) {
+            editedOrder.setTotalPrice(updatedData.getTotalPrice());
         }
         if (updatedData.getStatus() != null) {
             editedOrder.setStatus(updatedData.getStatus());
         }
-        if (updatedData.getRegister_code() != null) {
-            editedOrder.setRegister_code(updatedData.getRegister_code());
+        if (updatedData.getRegisterCode() != null) {
+            editedOrder.setRegisterCode(updatedData.getRegisterCode());
         }
         orderRepository.save(updatedData);
         log.info("Order was updated");

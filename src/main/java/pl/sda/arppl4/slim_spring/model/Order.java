@@ -15,16 +15,22 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String register_code;
-    private String total_price;
+    private String registerCode;
+    private String totalPrice;
     private String status;
-    private LocalDateTime order_date;
+    private LocalDateTime orderDate;
 
 
     @ManyToOne()
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Customer customer;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    private Set<OrderItem> orderItem;
+
+
 
 
 }

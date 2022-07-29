@@ -30,7 +30,7 @@ public class Result {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
-    private AUser auser;
+    private AUser aUser;
 
     @ManyToOne()
     @EqualsAndHashCode.Exclude

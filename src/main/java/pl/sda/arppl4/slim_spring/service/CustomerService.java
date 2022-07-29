@@ -39,20 +39,20 @@ public class CustomerService {
             if (updatedData.getCompany() != null) {
                 editedCustomer.setCompany(updatedData.getCompany());
             }
-            if (updatedData.getFirst_name() != null) {
-                editedCustomer.setFirst_name(updatedData.getFirst_name());
+            if (updatedData.getFirstName() != null) {
+                editedCustomer.setFirstName(updatedData.getFirstName());
             }
-            if (updatedData.getSecond_name() != null) {
-                editedCustomer.setSecond_name(updatedData.getSecond_name());
+            if (updatedData.getSecondName() != null) {
+                editedCustomer.setSecondName(updatedData.getSecondName());
             }
             if (updatedData.getStreet() != null) {
                 editedCustomer.setStreet(updatedData.getStreet());
             }
-            if (updatedData.getStreet_number() != null) {
-                editedCustomer.setStreet_number(updatedData.getStreet_number());
+            if (updatedData.getStreetNumber() != null) {
+                editedCustomer.setStreetNumber(updatedData.getStreetNumber());
             }
-            if (updatedData.getPostal_code() != null) {
-                editedCustomer.setPostal_code(updatedData.getPostal_code());
+            if (updatedData.getPostalCode() != null) {
+                editedCustomer.setPostalCode(updatedData.getPostalCode());
             }
             if (updatedData.getCity() != null) {
                 editedCustomer.setCity(updatedData.getCity());
@@ -63,11 +63,11 @@ public class CustomerService {
             if (updatedData.getEmail() != null) {
                 editedCustomer.setEmail(updatedData.getEmail());
             }
-            if (updatedData.getPhone_number() != null) {
-                editedCustomer.setPhone_number(updatedData.getPhone_number());
+            if (updatedData.getPhoneNumber() != null) {
+                editedCustomer.setPhoneNumber(updatedData.getPhoneNumber());
             }
-            if (updatedData.getNip_number() != null) {
-                editedCustomer.setNip_number(updatedData.getNip_number());
+            if (updatedData.getNipNumber() != null) {
+                editedCustomer.setNipNumber(updatedData.getNipNumber());
             }
             if (updatedData.getLogin() != null) {
                 editedCustomer.setLogin(updatedData.getLogin());
