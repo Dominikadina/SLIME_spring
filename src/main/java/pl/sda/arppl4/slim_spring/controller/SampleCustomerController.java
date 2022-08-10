@@ -26,7 +26,7 @@ public class SampleCustomerController {
         List<SampleCustomer> list = sampleCustomerService.getAllSampleCustomers();
         return list;
     }
-    @DeleteMapping("/delete/{identifier")
+    @DeleteMapping("/delete/{identifier}")
     public void deleteSampleCustomer(@PathVariable(name = "identifier") Long identifier) {
         log.info("Delete customer sample was called:" + identifier);
         sampleCustomerService.deleteById(identifier);

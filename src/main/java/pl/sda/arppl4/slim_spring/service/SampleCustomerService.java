@@ -37,11 +37,11 @@ public class SampleCustomerService {
         Optional<SampleCustomer> sampleCustomerOptional = sampleCustomerRepository.findById(identifier);
         if(sampleCustomerOptional.isPresent()){
             SampleCustomer editedSampleCustomer = sampleCustomerOptional.get();
-            if (updatedData.getSample_type() != null) {
-                editedSampleCustomer.setSample_type(updatedData.getSample_type());
+            if (updatedData.getSampleType() != null) {
+                editedSampleCustomer.setSampleType(updatedData.getSampleType());
             }
-            if (updatedData.getRegister_code() != null) {
-                editedSampleCustomer.setRegister_code(updatedData.getRegister_code());
+            if (updatedData.getRegisterCode() != null) {
+                editedSampleCustomer.setRegisterCode(updatedData.getRegisterCode());
             }
             sampleCustomerRepository.save(updatedData);
             log.info("Sample customer was updated");

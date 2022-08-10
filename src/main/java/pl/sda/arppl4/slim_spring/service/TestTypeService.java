@@ -31,11 +31,11 @@ public class TestTypeService {
         }
 
 
-        public void addAUser(TestType testTypes) {
+        public void addTestType(TestType testTypes) {
             testTypeRepository.save(testTypes);
         }
 
-        public void deleteAUser(Long testTypesId) {
+        public void deleteTestType(Long testTypesId) {
             testTypeRepository.deleteById(testTypesId);
         }
 

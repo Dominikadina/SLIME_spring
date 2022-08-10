@@ -28,12 +28,12 @@ public class AUser {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "auser", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "aUser", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private Set<SampleCustomer> sampleCustomers ;
 
-    @OneToMany(mappedBy = "auser", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "aUser", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private Set<Result> result ;

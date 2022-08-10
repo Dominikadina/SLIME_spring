@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.arppl4.slim_spring.model.TestType;
+import pl.sda.arppl4.slim_spring.service.TestTypeService;
 
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class TestTypeController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody TestType TestType) {
+    public void create(@RequestBody TestType testType) {
         log.info("Received request: create -> " + testType);
         testTypeService.addTestType(testType);
     }
@@ -40,7 +42,7 @@ public class TestTypeController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable(name = "id") Long auserId, @RequestBody TestType testType) {
+    public void update(@PathVariable(name = "id") Long testTypeId, @RequestBody TestType testType) {
         log.info("Received request: update -> " + testType);
         testTypeService.update(testTypeId, testType);
     }
