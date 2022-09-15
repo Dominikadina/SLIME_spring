@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.arppl4.slim_spring.model.DTO.OrderItemDTO;
 import pl.sda.arppl4.slim_spring.model.OrderItem;
 import pl.sda.arppl4.slim_spring.service.OrderItemService;
 
@@ -20,12 +21,10 @@ public class OrderItemController {
 
 
 
-    @GetMapping()
-    public ResponseEntity<List<OrderItem>> list() {
-        log.info("Received request: list");
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(orderItemService.findAll());
+    @GetMapping
+    public List<OrderItemDTO> userList() {
+        log.info("Listing all order items");
+        return orderItemService.listAll();
     }
 
     @PostMapping()
@@ -43,7 +42,7 @@ public class OrderItemController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable(name = "id") Long orderItemId, @RequestBody OrderItem orderItem) {
+    public void update(@PathVariable(name = "id") Long orderItemId, @RequestBody OrderItemDTO orderItem) {
         log.info("Received request: update -> " + orderItem);
         orderItemService.update(orderItemId, orderItem);
     }

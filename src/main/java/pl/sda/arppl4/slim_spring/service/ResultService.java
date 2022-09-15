@@ -3,6 +3,7 @@ package pl.sda.arppl4.slim_spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.sda.arppl4.slim_spring.model.DTO.ResultDTO;
 import pl.sda.arppl4.slim_spring.model.Result;
 import pl.sda.arppl4.slim_spring.repository.ResultRepository;
 
@@ -11,6 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -19,16 +21,11 @@ public class ResultService {
 
     private final ResultRepository resultRepository;
 
-    public List<Result> findAll() {
+    public List<ResultDTO> listAll() {
         List<Result> resultList = resultRepository.findAll();
-
-        List<Result> results = new ArrayList<>();
-        for (Result result : resultList) {
-            results.add(result);
-        }
-
-        return results;
+        return resultList.stream().map(Result::mapToDTO).collect(Collectors.toList());
     }
+
 
     public void addResult(Result result) {
         resultRepository.save(result);
@@ -38,22 +35,22 @@ public class ResultService {
         resultRepository.deleteById(resultId);
     }
 
-    public void update(Long resultId, Result editResultInformation) {
+    public void update(Long resultId, ResultDTO editResultInformation) {
         Optional<Result> resultOptional = resultRepository.findById(resultId);
         if (resultOptional.isPresent()) {
             Result result = resultOptional.get();
 
-           if(editResultInformation.getTestResult()!=null){
-                result.setTestResult(editResultInformation.getTestResult());
+           if(editResultInformation.getTestResultDTO()!=null){
+                result.setTestResult(editResultInformation.getTestResultDTO());
             }
-            if(editResultInformation.getComment()!=null){
-                result.setComment(editResultInformation.getComment());
+            if(editResultInformation.getCommentDTO()!=null){
+                result.setComment(editResultInformation.getCommentDTO());
             }
-            if(editResultInformation.getStatus()!=null){
-                result.setStatus(editResultInformation.getStatus());
+            if(editResultInformation.getStatusDTO()!=null){
+                result.setStatus(editResultInformation.getStatusDTO());
             }
-            if(editResultInformation.getUnit()!=null){
-                result.setUnit(editResultInformation.getUnit());
+            if(editResultInformation.getUnitDTO()!=null){
+                result.setUnit(editResultInformation.getUnitDTO());
             }
 
 

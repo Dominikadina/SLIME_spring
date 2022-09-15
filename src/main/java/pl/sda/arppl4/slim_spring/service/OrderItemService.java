@@ -3,6 +3,7 @@ package pl.sda.arppl4.slim_spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.sda.arppl4.slim_spring.model.DTO.OrderItemDTO;
 import pl.sda.arppl4.slim_spring.model.OrderItem;
 import pl.sda.arppl4.slim_spring.model.Result;
 import pl.sda.arppl4.slim_spring.repository.OrderItemRepository;
@@ -12,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -20,15 +22,9 @@ public class OrderItemService {
 
     private final OrderItemRepository orderItemRepository;
 
-    public List<OrderItem> findAll() {
-        List<OrderItem> orderItemList = orderItemRepository.findAll();
-
-        List<OrderItem> orderItems = new ArrayList<>();
-        for (OrderItem orderItem : orderItemList) {
-            orderItems.add(orderItem);
-        }
-
-        return orderItems;
+    public List<OrderItemDTO> listAll() {
+        List<OrderItem> userList = orderItemRepository.findAll();
+        return userList.stream().map(OrderItem::mapToDTO).collect(Collectors.toList());
     }
 
     public void addOrderItem(OrderItem orderItem) {
@@ -39,16 +35,16 @@ public class OrderItemService {
         orderItemRepository.deleteById(orderItemId);
     }
 
-    public void update(Long orderItemId, OrderItem editOrderItemInformation) {
+    public void update(Long orderItemId, OrderItemDTO editOrderItemInformation) {
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(orderItemId);
         if (orderItemOptional.isPresent()) {
             OrderItem orderItem = orderItemOptional.get();
 
-            if(editOrderItemInformation.getApackage()!=null){
-                orderItem.setApackage(editOrderItemInformation.getApackage());
+            if(editOrderItemInformation.getAPackageDTO()!=null){
+                orderItem.setApackage(editOrderItemInformation.getAPackageDTO());
             }
-            if(editOrderItemInformation.getPrice()!=null){
-                orderItem.setPrice(editOrderItemInformation.getPrice());
+            if(editOrderItemInformation.getPriceDTO()!=null){
+                orderItem.setPrice(editOrderItemInformation.getPriceDTO());
             }
 
             orderItemRepository.save(orderItem);

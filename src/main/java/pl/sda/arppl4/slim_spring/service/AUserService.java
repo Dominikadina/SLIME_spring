@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.sda.arppl4.slim_spring.model.AUser;
-import pl.sda.arppl4.slim_spring.model.Result;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
 import pl.sda.arppl4.slim_spring.repository.AUserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,15 +18,9 @@ import java.util.Optional;
 public class AUserService {
     private final AUserRepository auserRepository;
 
-    public List<AUser> findAll() {
-        List<AUser> auserList = auserRepository.findAll();
-
-        List<AUser> ausers = new ArrayList<>();
-        for (AUser auser : auserList) {
-            ausers.add(auser);
-        }
-
-        return ausers;
+    public List<AUserDTO> listAll() {
+        List<AUser> userList = auserRepository.findAll();
+        return userList.stream().map(AUser::mapToDTO).collect(Collectors.toList());
     }
 
 
@@ -38,28 +32,28 @@ public class AUserService {
         auserRepository.deleteById(auserId);
     }
 
-    public void update(Long auserId, AUser editauserInformation) {
+    public void update(Long auserId, AUserDTO editauserInformation) {
         Optional<AUser> auserOptional = auserRepository.findById(auserId);
         if (auserOptional.isPresent()) {
             AUser auser = auserOptional.get();
 
-            if(editauserInformation.getFirstName()!=null){
-                auser.setFirstName(editauserInformation.getFirstName());
+            if(editauserInformation.getFNameDTO()!=null){
+                auser.setFirstName(editauserInformation.getFNameDTO());
             }
-            if(editauserInformation.getLastName()!=null){
-                auser.setLastName(editauserInformation.getLastName());
+            if(editauserInformation.getLNameDTO()!=null){
+                auser.setLastName(editauserInformation.getLNameDTO());
             }
-            if(editauserInformation.getEmail()!=null){
-                auser.setEmail(editauserInformation.getEmail());
+            if(editauserInformation.getEmailDTO()!=null){
+                auser.setEmail(editauserInformation.getEmailDTO());
             }
-            if(editauserInformation.getPassword()!=null){
-                auser.setPassword(editauserInformation.getPassword());
+            if(editauserInformation.getPasswordDTO()!=null){
+                auser.setPassword(editauserInformation.getPasswordDTO());
             }
-            if(editauserInformation.getLogin()!=null){
-                auser.setLogin(editauserInformation.getLogin());
+            if(editauserInformation.getLoginDTO()!=null){
+                auser.setLogin(editauserInformation.getLoginDTO());
             }
-            if(editauserInformation.getRole()!=null){
-                auser.setRole(editauserInformation.getRole());
+            if(editauserInformation.getRoleDTO()!=null){
+                auser.setRole(editauserInformation.getRoleDTO());
             }
 
             auserRepository.save(auser);

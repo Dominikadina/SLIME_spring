@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.arppl4.slim_spring.model.AUser;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
 import pl.sda.arppl4.slim_spring.model.Result;
 import pl.sda.arppl4.slim_spring.service.AUserService;
 
@@ -20,11 +21,10 @@ public class AUserController {
 
 
 
-    public ResponseEntity<List<AUser>> list() {
-        log.info("Received request: list");
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(auserService.findAll());
+    @GetMapping
+    public List<AUserDTO> userList() {
+        log.info("Listing all users");
+        return auserService.listAll();
     }
 
     @PostMapping()
@@ -42,7 +42,7 @@ public class AUserController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable(name = "id") Long auserId, @RequestBody AUser auser) {
+    public void update(@PathVariable(name = "id") Long auserId, @RequestBody AUserDTO auser) {
         log.info("Received request: update -> " + auser);
         auserService.update(auserId, auser);
     }

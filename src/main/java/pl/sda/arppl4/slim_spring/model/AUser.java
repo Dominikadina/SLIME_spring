@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data // Getter Setter ToString EqualsAndHashCode
@@ -28,13 +31,30 @@ public class AUser {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "aUser", fetch = FetchType.EAGER)
-    @EqualsAndHashCode.Exclude
-    @JsonManagedReference
-    private Set<SampleCustomer> sampleCustomers ;
+    @CreationTimestamp
+    private LocalDateTime registrationDate;
 
     @OneToMany(mappedBy = "aUser", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
-    private Set<Result> result ;
+    private Set<SampleCustomer> sampleCustomers;
+
+    @OneToMany(mappedBy = "aUser", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @JsonManagedReference
+    private Set<Result> result;
+
+
+
+    public AUserDTO mapToDTO() {
+        return new AUserDTO(
+                id,
+                firstName,
+                lastName,
+                email,
+                login,
+                password,
+                role
+        );
+    }
 }

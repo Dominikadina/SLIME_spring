@@ -3,6 +3,8 @@ package pl.sda.arppl4.slim_spring.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.OrderItemDTO;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -42,5 +44,14 @@ public class OrderItem {
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private Set<Result> result ;
+
+    public OrderItemDTO mapToDTO() {
+        return new OrderItemDTO(
+                id,
+                apackage,
+                price
+
+        );
+    }
 
 }

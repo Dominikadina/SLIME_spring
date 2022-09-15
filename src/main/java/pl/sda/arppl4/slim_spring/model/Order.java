@@ -1,6 +1,10 @@
 package pl.sda.arppl4.slim_spring.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.CustomerDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.OrderDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +22,7 @@ public class Order {
     private String registerCode;
     private String totalPrice;
     private String status;
+    @CreationTimestamp
     private LocalDateTime orderDate;
 
 
@@ -30,7 +35,15 @@ public class Order {
     @EqualsAndHashCode.Exclude
     private Set<OrderItem> orderItem;
 
-
-
+    public OrderDTO mapToDTO() {
+        return new OrderDTO(
+                id,
+                registerCode,
+                totalPrice,
+                status
+        );
+    }
 
 }
+
+

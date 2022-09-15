@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.ResultDTO;
 import pl.sda.arppl4.slim_spring.model.Result;
 import pl.sda.arppl4.slim_spring.service.ResultService;
 
@@ -20,12 +22,10 @@ public class ResultController {
 
 
 
-    @GetMapping()
-    public ResponseEntity<List<Result>> list() {
-        log.info("Received request: list");
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(resultService.findAll());
+    @GetMapping
+    public List<ResultDTO> userList() {
+        log.info("Listing all users");
+        return resultService.listAll();
     }
 
     @PostMapping()
@@ -43,7 +43,7 @@ public class ResultController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable(name = "id") Long resultId, @RequestBody Result result) {
+    public void update(@PathVariable(name = "id") Long resultId, @RequestBody ResultDTO result) {
         log.info("Received request: update -> " + result);
         resultService.update(resultId, result);
     }
