@@ -2,14 +2,18 @@ package pl.sda.arppl4.slim_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.CustomerDTO;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Data // Getter Setter ToString EqualsAndHashCode
 @Entity
-
 @NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +22,16 @@ public class Customer {
     private String company;
     private String firstName;
     private String secondName;
-    private String street;
-    private String streetNumber;
-    private String postalCode;
-    private String city;
+    private String address;
     private String country;
     private String email;
     private String phoneNumber;
     private String nipNumber;
     private String login;
     private String password;
+
+    @CreationTimestamp
+    private LocalDateTime registrationDate;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
@@ -38,22 +42,20 @@ public class Customer {
     @EqualsAndHashCode.Exclude
     private Set<SampleCustomer> sampleCustomers;
 
-    public Customer(Long id, String company, String first_name, String second_name, String street, String street_number, String postal_code, String city, String country, String email, String phone_number, String nip_number, String login, String password, Set<Order> order, Set<SampleCustomer> sampleCustomers) {
-        this.id = id;
-        this.company = company;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.country = country;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.nipNumber = nipNumber;
-        this.login = login;
-        this.password = password;
-        this.order = order;
-        this.sampleCustomers = sampleCustomers;
+    public CustomerDTO mapToDTO() {
+        return new CustomerDTO(
+                id,
+                company,
+                firstName,
+                secondName,
+                address,
+                country,
+                email,
+                phoneNumber,
+                nipNumber,
+                login,
+                password
+        );
     }
+
 }

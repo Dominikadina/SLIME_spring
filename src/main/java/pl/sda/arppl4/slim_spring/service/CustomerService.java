@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.sda.arppl4.slim_spring.model.Customer;
+import pl.sda.arppl4.slim_spring.model.DTO.CustomerDTO;
 import pl.sda.arppl4.slim_spring.repository.CustomerRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,66 +23,57 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
-
+    public List<CustomerDTO> listAll() {
+        List<Customer> userList = customerRepository.findAll();
+        return userList.stream().map(Customer::mapToDTO).collect(Collectors.toList());
     }
 
     public void deleteById(Long identifier) {
         customerRepository.deleteById(identifier);
     }
 
-    public void updateCustomer(Customer updatedData) {
-        Long identifier = updatedData.getId();
-        Optional<Customer> customerOptional = customerRepository.findById(identifier);
+    public void updateCustomer(Long customerId, CustomerDTO updatedData) {
+
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer editedCustomer = customerOptional.get();
 
-            if (updatedData.getCompany() != null) {
-                editedCustomer.setCompany(updatedData.getCompany());
+            if (updatedData.getCompanyDTO() != null) {
+                editedCustomer.setCompany(updatedData.getCompanyDTO());
             }
-            if (updatedData.getFirstName() != null) {
-                editedCustomer.setFirstName(updatedData.getFirstName());
+            if (updatedData.getFirstNameDTO() != null) {
+                editedCustomer.setFirstName(updatedData.getFirstNameDTO());
             }
-            if (updatedData.getSecondName() != null) {
-                editedCustomer.setSecondName(updatedData.getSecondName());
+            if (updatedData.getSecondNameDTO() != null) {
+                editedCustomer.setSecondName(updatedData.getSecondNameDTO());
             }
-            if (updatedData.getStreet() != null) {
-                editedCustomer.setStreet(updatedData.getStreet());
+            if (updatedData.getAddressDTO() != null) {
+                editedCustomer.setAddress(updatedData.getAddressDTO());
             }
-            if (updatedData.getStreetNumber() != null) {
-                editedCustomer.setStreetNumber(updatedData.getStreetNumber());
+            if (updatedData.getCountryDTO() != null) {
+                editedCustomer.setCountry(updatedData.getCountryDTO());
             }
-            if (updatedData.getPostalCode() != null) {
-                editedCustomer.setPostalCode(updatedData.getPostalCode());
+            if (updatedData.getEmailDTO() != null) {
+                editedCustomer.setEmail(updatedData.getEmailDTO());
             }
-            if (updatedData.getCity() != null) {
-                editedCustomer.setCity(updatedData.getCity());
+            if (updatedData.getPhoneNumberDTO() != null) {
+                editedCustomer.setPhoneNumber(updatedData.getPhoneNumberDTO());
             }
-            if (updatedData.getCountry() != null) {
-                editedCustomer.setCountry(updatedData.getCountry());
+            if (updatedData.getNipNumberDTO() != null) {
+                editedCustomer.setNipNumber(updatedData.getNipNumberDTO());
             }
-            if (updatedData.getEmail() != null) {
-                editedCustomer.setEmail(updatedData.getEmail());
+            if (updatedData.getLoginDTO() != null) {
+                editedCustomer.setLogin(updatedData.getLoginDTO());
             }
-            if (updatedData.getPhoneNumber() != null) {
-                editedCustomer.setPhoneNumber(updatedData.getPhoneNumber());
-            }
-            if (updatedData.getNipNumber() != null) {
-                editedCustomer.setNipNumber(updatedData.getNipNumber());
-            }
-            if (updatedData.getLogin() != null) {
-                editedCustomer.setLogin(updatedData.getLogin());
-            }
-            if (updatedData.getPassword() != null) {
-                editedCustomer.setPassword(updatedData.getPassword());
+            if (updatedData.getPasswordDTO() != null) {
+                editedCustomer.setPassword(updatedData.getPasswordDTO());
             }
 
-        customerRepository.save(updatedData);
+        customerRepository.save(editedCustomer);
         log.info("Customer was updated.");
         return;
     }
 
-throw new EntityNotFoundException("No customer with id: " + updatedData.getId() +"has been found");
+throw new EntityNotFoundException("No customer with id: " + updatedData.getIdDTO() +"has been found");
 }
 }

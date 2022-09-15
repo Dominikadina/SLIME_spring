@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.TestTypeDTO;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -29,6 +31,16 @@ public class TestType {
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
     private Set<OrderItem> orderItem;
+
+    public TestTypeDTO mapToDTO() {
+        return new TestTypeDTO(
+                id,
+                testCode,
+                testName,
+                method,
+                status
+        );
+    }
 
 
 }

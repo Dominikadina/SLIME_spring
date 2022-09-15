@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.TestTypeDTO;
 import pl.sda.arppl4.slim_spring.model.TestType;
 import pl.sda.arppl4.slim_spring.service.TestTypeService;
 
@@ -20,11 +22,10 @@ public class TestTypeController {
 
 
 
-    public ResponseEntity<List<TestType>> list() {
-        log.info("Received request: list");
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(testTypeService.findAll());
+    @GetMapping
+    public List<TestTypeDTO> testTypeList() {
+        log.info("Listing all test types");
+        return testTypeService.listAll();
     }
 
     @PostMapping()
@@ -42,7 +43,7 @@ public class TestTypeController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable(name = "id") Long testTypeId, @RequestBody TestType testType) {
+    public void update(@PathVariable(name = "id") Long testTypeId, @RequestBody TestTypeDTO testType) {
         log.info("Received request: update -> " + testType);
         testTypeService.update(testTypeId, testType);
     }

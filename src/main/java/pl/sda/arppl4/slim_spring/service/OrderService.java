@@ -3,12 +3,15 @@ package pl.sda.arppl4.slim_spring.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import pl.sda.arppl4.slim_spring.model.DTO.OrderDTO;
 import pl.sda.arppl4.slim_spring.model.Order;
 import pl.sda.arppl4.slim_spring.repository.OrderRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -22,9 +25,9 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public List<Order> getAllOrder() {
-
-        return orderRepository.findAll();
+    public List<OrderDTO> listAll() {
+        List<Order> userList = orderRepository.findAll();
+        return userList.stream().map(Order::mapToDTO).collect(Collectors.toList());
     }
 
     public void deleteById(Long identifier) {
@@ -32,28 +35,28 @@ public class OrderService {
         orderRepository.deleteById(identifier);
     }
 
-    public void updateOrder(Order updatedData) {
-        Long identifier = updatedData.getId();
-        Optional<Order> orderOptional = orderRepository.findById(identifier);
+    public void updateOrder(Long orderId, OrderDTO updatedData) {
+
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
         if (orderOptional.isPresent()){
         Order editedOrder = orderOptional.get();
-        if (updatedData.getRegisterCode() != null) {
-            editedOrder.setRegisterCode(updatedData.getRegisterCode());
+        if (updatedData.getRegisterCodeDTO() != null) {
+            editedOrder.setRegisterCode(updatedData.getRegisterCodeDTO());
         }
-        if (updatedData.getTotalPrice() != null) {
-            editedOrder.setTotalPrice(updatedData.getTotalPrice());
+        if (updatedData.getTotalPriceDTO() != null) {
+            editedOrder.setTotalPrice(updatedData.getTotalPriceDTO());
         }
-        if (updatedData.getStatus() != null) {
-            editedOrder.setStatus(updatedData.getStatus());
+        if (updatedData.getStatusDTO() != null) {
+            editedOrder.setStatus(updatedData.getStatusDTO());
         }
-        if (updatedData.getRegisterCode() != null) {
-            editedOrder.setRegisterCode(updatedData.getRegisterCode());
+        if (updatedData.getRegisterCodeDTO() != null) {
+            editedOrder.setRegisterCode(updatedData.getRegisterCodeDTO());
         }
-        orderRepository.save(updatedData);
+        orderRepository.save(editedOrder);
         log.info("Order was updated");
         return;
     }
-    throw new EntityNotFoundException ("No order with id: " + updatedData.getId() + "has been found");
+    throw new EntityNotFoundException ("No order with id: " + updatedData.getIdDTO() + "has been found");
 }
     }
 

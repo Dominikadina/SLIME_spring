@@ -2,6 +2,8 @@ package pl.sda.arppl4.slim_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import pl.sda.arppl4.slim_spring.model.DTO.AUserDTO;
+import pl.sda.arppl4.slim_spring.model.DTO.ResultDTO;
 
 import javax.persistence.*;
 
@@ -43,6 +45,17 @@ public class Result {
     @ToString.Exclude
     @JsonBackReference
     private OrderItem orderItem;
+
+    public ResultDTO mapToDTO() {
+        return new ResultDTO(
+                id,
+                testResult,
+                unit,
+                status,
+                comment
+
+        );
+    }
 
 
 }
